@@ -15,7 +15,7 @@ pipelines:
           script:
             - bundle install
             - gem build logstash-input-nats_streaming.gemspec
-            - ls *.gem
+            - curl -X POST --user "${BB_AUTH_STRING}" "https://api.bitbucket.org/2.0/repositories/${BITBUCKET_REPO_OWNER}/${BITBUCKET_REPO_SLUG}/downloads" --form files=@$( ls -1 ./logstash-input-nats_streaming-*.gem | head -1)
 
 definitions:
   caches:

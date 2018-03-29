@@ -1,3 +1,6 @@
+## 0.1.2
+  - Added bitbucket pipeline artifact push
+
 ## 0.1.1
   - Added bitbucket build pipeline
 
