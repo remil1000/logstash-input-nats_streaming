@@ -69,7 +69,7 @@ gem build logstash-input-nats_streaming.gemspec
 ```
 - Install the plugin from the Logstash home, example:
 ```sh
-bin/logstash-plugin install logstash-input-nats_streaming-0.1.0.gem
+bin/logstash-plugin install logstash-input-nats_streaming-0.1.1.gem
 ```
 - Start Logstash and proceed to test the plugin
 
