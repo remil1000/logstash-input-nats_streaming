@@ -1,0 +1,22 @@
+image: jruby:9.1
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - bundler
+        script:
+          - bundle install
+  tags:
+    '*':
+      - step:
+          caches:
+            - bundler
+          script:
+            - bundle install
+            - gem build logstash-input-nats_streaming.gemspec
+            - ls *.gem
+
+definitions:
+  caches:
+    bundler: ./vendor
