@@ -9,7 +9,30 @@ Input plugin for [NATS Streaming](https://nats.io/documentation/streaming/nats-s
 
 ## Documentation
 
-Configuration example:
+Uses ruby-nats-streaming library:
+
+- https://github.com/nats-io/ruby-nats-streaming
+- https://nats.io/documentation/streaming/nats-streaming-intro/
+
+### Options
+
+Available options (see NATS.io and ruby-nats-streaming for usage):
+
+- servers, array default `[ "nats://localhost:4222" ]`
+- cluster, string required
+- subject, string required
+- clientid, string default `Socket.gethostname (hostname)`
+- interval, number default 60
+- durable_name, string default ""
+- unsubscribe, boolean default false
+- queue_group, string default ""
+- start_at, string default "first"
+- max_inflight, number default 1024
+- ack_wait, number default 30
+- sequence, number no default value
+- nats_meta, boolean default true (include nats_clientid nats_subject nats_cluster in the output event)
+
+### Configuration example:
 
 ```ruby
 input {
@@ -18,8 +41,8 @@ input {
 		servers => [ "nats://localhost:4222" ]
 		cluster => "test-cluster"
 		subject => "mysubject"
-    #clientid => "myclientid"
-    #durable_name => "durable"
+		#clientid => "myclientid"
+		#durable_name => "durable"
 	}
 }
 
