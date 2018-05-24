@@ -62,8 +62,10 @@ output {
 - To get started, you'll need JRuby (we'll use RVM, adapt GPG key id if needed)
 
 ```sh
-curl -sSL https://get.rvm.io | bash -s stable
 gpg --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -sSL https://get.rvm.io | bash -s stable
+
+source /etc/profile.d/rvm.sh
 
 rvm install jruby
 rvm use jruby
@@ -80,8 +82,6 @@ bundle install
 
 ```sh
 gem build logstash-input-nats_streaming.gemspec
-gem install bundler
-bundle install
 ```
 
 ### 2. Running your unpublished Plugin in Logstash
@@ -92,7 +92,7 @@ gem build logstash-input-nats_streaming.gemspec
 ```
 - Install the plugin from the Logstash home, example:
 ```sh
-bin/logstash-plugin install logstash-input-nats_streaming-0.1.1.gem
+bin/logstash-plugin install logstash-input-nats_streaming-0.2.0.gem
 ```
 - Start Logstash and proceed to test the plugin
 
