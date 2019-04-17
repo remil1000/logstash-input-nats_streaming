@@ -1,3 +1,6 @@
+## 0.2.1
+	- Added support for multiple subjects (comma separated list)
+
 ## 0.2.0
 	- Added many library options
 	- queue support, start_at support, durable_support

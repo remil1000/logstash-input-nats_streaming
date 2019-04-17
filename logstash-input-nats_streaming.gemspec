@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'logstash-input-nats_streaming'
-  s.version       = '0.2.0'
+  s.version       = '0.2.1'
   s.licenses      = ['Apache-2.0']
   s.summary       = 'nats streaming input plugin'
   s.homepage      = 'http://www.data-essential.com/'

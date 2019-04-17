@@ -20,7 +20,9 @@ Available options (see NATS.io and ruby-nats-streaming for usage):
 
 - servers, array default `[ "nats://localhost:4222" ]`
 - cluster, string required
-- subject, string required
+- subject, string required ; multiple subjects separated by commas (,) are also supported 
+  *WARNING: multiple subjects in same input may be subject to noisy neighbor issue; 
+  it is recommended to use one logstash pipeline per subject*
 - clientid, string default `Socket.gethostname (hostname)`
 - interval, number default 60
 - durable_name, string default ""
@@ -41,6 +43,7 @@ input {
 		servers => [ "nats://localhost:4222" ]
 		cluster => "test-cluster"
 		subject => "mysubject"
+		#subject => "mysubject, myothersubject"
 		#clientid => "myclientid"
 		#durable_name => "durable"
 	}

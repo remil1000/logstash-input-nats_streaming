@@ -35,6 +35,8 @@ class LogStash::Inputs::NatsStreaming < LogStash::Inputs::Base
 			:max_inflight => @max_inflight,
 			:ack_wait => @ack_wait
 		}
+		@subjects = @subject.split(",").map(&:strip).uniq
+		@subjects.delete("") # .delete() is a side effect function
 		unless @queue.empty?
 			@subscribe_opts[:queue] = @queue
 		end
@@ -54,17 +56,19 @@ class LogStash::Inputs::NatsStreaming < LogStash::Inputs::Base
 	end
 
 	def run(queue)
-		@sc.subscribe(@subject, @subscribe_opts) do |msg|
-			line = msg.data.chomp + "\n"
-			@codec.decode(line) do |event|
-				event.set("host", @host)
-				if @nats_meta
-					event.set("nats_clientid", @clientid)
-					event.set("nats_subject", @subject)
-					event.set("nats_cluster", @cluster)
+		@subjects.each do |subject|
+			@sc.subscribe(subject, @subscribe_opts) do |msg|
+				line = msg.data.chomp + "\n"
+				@codec.decode(line) do |event|
+					event.set("host", @host)
+					if @nats_meta
+						event.set("nats_clientid", @clientid)
+						event.set("nats_subject", subject)
+						event.set("nats_cluster", @cluster)
+					end
+					decorate(event)
+					queue << event
 				end
-				decorate(event)
-				queue << event
 			end
 		end
 		while !stop?
